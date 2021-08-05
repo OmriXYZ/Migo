@@ -7,8 +7,11 @@ import com.migogames.game.GameMain;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new GameMain(), config);
-		System.out.println("Omri is bot in Git");
-		System.out.println("Valhalla");
+		config.vSyncEnabled = false;
+		config.width = 960;
+		config.height = 640;
+		config.foregroundFPS = 0;
+
+		new LwjglApplication(new Boot(), config);
 	}
 }

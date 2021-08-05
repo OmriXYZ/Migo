@@ -9,5 +9,6 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		new LwjglApplication(new GameMain(), config);
 		System.out.println("Omri is bot in Git");
+		System.out.println("Valhalla");
 	}
 }

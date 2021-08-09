@@ -24,7 +24,7 @@ public class Player {
         body = world.createBody(def);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(width / PPM / 2, height / PPM / 2);
+        shape.setAsBox(width / 2 / PPM, height / 2 / PPM);
 
         body.createFixture(shape, 1.0f);
         shape.dispose();
@@ -43,6 +43,10 @@ public class Player {
             xForce += 1;
         }
 
-        body.setLinearVelocity(xForce, body.getLinearVelocity().y);
+        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+            body.applyForceToCenter(0, 300, false);
+        }
+
+        body.setLinearVelocity(xForce * 5, body.getLinearVelocity().y);
     }
 }

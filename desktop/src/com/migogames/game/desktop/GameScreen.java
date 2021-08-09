@@ -28,8 +28,8 @@ public class GameScreen extends ScreenAdapter {
         this.world = new World(new Vector2(0,-9.8f), false);
         this.debugger = new Box2DDebugRenderer();
 
-        player = new Player("Itay", world, 10, 250, 60, 60);
-        platform = new Platform(world, 10, 0, 500, 8);
+        player = new Player("Itay", world, 10, 250, 32, 32);
+        platform = new Platform(world, 10, 0, 500, 40);
     }
 
     public void render(float delta) {

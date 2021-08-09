@@ -20,7 +20,7 @@ public class Platform {
         body = world.createBody(def);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(width / PPM, height / PPM);
+        shape.setAsBox(width / 2 / PPM, height / 2 / PPM);
 
         body.createFixture(shape, 1.0f);
         shape.dispose();

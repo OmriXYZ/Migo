@@ -19,7 +19,7 @@ public class Boot extends Game {
         this.widthScreen = Gdx.graphics.getWidth();
         this.heightScreen = Gdx.graphics.getHeight();
         this.orthographicCamera = new OrthographicCamera();
-        this.orthographicCamera.setToOrtho(false, widthScreen / 2, heightScreen / 2);
+        this.orthographicCamera.setToOrtho(false, widthScreen , heightScreen);
         setScreen(new GameScreen(orthographicCamera));
     }
 }

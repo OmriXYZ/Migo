@@ -15,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.migogames.game.MapBodyBuilder;
 import com.migogames.game.Platform;
 import com.migogames.game.Player;
+import com.migogames.game.contactListenres.ContactListers;
 
 import static helper.Constants.PPM;
 
@@ -34,6 +35,7 @@ public class GameScreen extends ScreenAdapter {
         this.batch = new SpriteBatch();
         this.world = new World(new Vector2(0,-9.8f), false);
         this.debugger = new Box2DDebugRenderer();
+        this.world.setContactListener(new ContactListers());//
 
         player = new Player("Itay", world, 10, 250, 32, 32);
         platform = new Platform(world, 10, 0, 500, 40);

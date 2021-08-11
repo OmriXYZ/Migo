@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.migogames.game.contactListenres.ContactListers;
 
 import static com.migogames.game.Constants.PPM;
 
@@ -26,7 +27,7 @@ public class Player {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(width / 2 / PPM, height / 2 / PPM);
 
-        body.createFixture(shape, 1.0f);
+        body.createFixture(shape, 1.0f).setUserData(this);//
         shape.dispose();
     }
 
@@ -45,8 +46,15 @@ public class Player {
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
             body.applyForceToCenter(0, 300, false);
+
+
         }
 
         body.setLinearVelocity(xForce * 5, body.getLinearVelocity().y);
+    }
+
+    public void hit() {
+        System.out.println("I have hit the ground");
+
     }
 }

@@ -22,7 +22,7 @@ public class Platform {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(width / 2 / PPM, height / 2 / PPM);
 
-        body.createFixture(shape, 1.0f);
+        body.createFixture(shape, 1.0f).setUserData(this);//
         shape.dispose();
     }
 }

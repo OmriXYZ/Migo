@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.5" tiledversion="1.7.1" orientation="orthogonal" renderorder="right-down" width="70" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="11">
+ <tileset firstgid="1" source="Migo.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="70" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20ND6AAAAAAAAAAAL4MINAAAQ==
+  </data>
+ </layer>
+ <layer id="2" name="Platform" width="70" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztx7ENAAAIA6D+6/+7U38wETYSAAAAAAAAAOCKef5a4/0GsQ==
+  </data>
+ </layer>
+ <objectgroup id="3" name="Floor">
+  <object id="7" x="128" y="832" width="2048" height="128">
+   <polygon points="0,0 2048,0 2048,128 0,128"/>
+  </object>
+ </objectgroup>
+</map>

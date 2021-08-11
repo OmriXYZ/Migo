@@ -5,10 +5,14 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.migogames.game.MapBodyBuilder;
 import com.migogames.game.Platform;
 import com.migogames.game.Player;
 
@@ -22,6 +26,9 @@ public class GameScreen extends ScreenAdapter {
     private Player player;
     private Platform platform;
 
+    private OrthogonalTiledMapRenderer tiledMapRenderer;
+    private TiledMap tileMap;
+
     public GameScreen(OrthographicCamera orthographicCamera) {
         this.camera = orthographicCamera;
         this.batch = new SpriteBatch();
@@ -30,6 +37,11 @@ public class GameScreen extends ScreenAdapter {
 
         player = new Player("Itay", world, 10, 250, 32, 32);
         platform = new Platform(world, 10, 0, 500, 40);
+
+        tileMap = new TmxMapLoader().load("map/World.tmx");
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(tileMap);
+
+        MapBodyBuilder.buildShapes(tileMap, 32, world);
     }
 
     public void render(float delta) {
@@ -38,6 +50,8 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0,0,0,1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        tiledMapRenderer.setView(camera);
+        tiledMapRenderer.render();
 
         debugger.render(world, camera.combined.scl(PPM));
     }
@@ -61,7 +75,11 @@ public class GameScreen extends ScreenAdapter {
         position.x = player.getBody().getPosition().x * PPM;
         position.y = player.getBody().getPosition().y * PPM;
         camera.position.set(position);
+        camera.zoom = 2f;
 
         camera.update();
     }
+
+
+
 }

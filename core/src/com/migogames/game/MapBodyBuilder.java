@@ -48,7 +48,7 @@ public class MapBodyBuilder {
             BodyDef bd = new BodyDef();
             bd.type = BodyDef.BodyType.StaticBody;
             Body body = world.createBody(bd);
-            body.createFixture(shape, 1);
+            body.createFixture(shape, 1).setUserData(shape);
 
             bodies.add(body);
 

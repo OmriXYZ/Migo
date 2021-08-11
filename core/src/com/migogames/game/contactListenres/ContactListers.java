@@ -1,5 +1,9 @@
 package com.migogames.game.contactListenres;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.*;
+import com.migogames.game.MapBodyBuilder;
 import com.migogames.game.Platform;
 import com.migogames.game.Player;
 
@@ -53,12 +57,9 @@ public class ContactListers implements ContactListener {
 
     private boolean isContact(Fixture a, Fixture b){
         if(a.getUserData() instanceof Player || b.getUserData() instanceof Player) {
-            if (!(a.getUserData() instanceof Platform) && !(b.getUserData() instanceof Platform)) {
-                return false;
-            }
-            return true;
+            if (a.getUserData() instanceof Shape || b.getUserData() instanceof Shape)
+                 return true;
         }
-
         return false;
     }
 }

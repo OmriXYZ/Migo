@@ -1,0 +1,96 @@
+
+idle.png
+size: 2048, 2048
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+Minotaur_01_Idle
+  rotate: false
+  xy: 2, 1478
+  size: 720, 490
+  orig: 720, 490
+  offset: 0, 0
+  index: 11
+Minotaur_01_Idle
+  rotate: false
+  xy: 2, 986
+  size: 720, 490
+  orig: 720, 490
+  offset: 0, 0
+  index: 3
+Minotaur_01_Idle
+  rotate: false
+  xy: 724, 1478
+  size: 720, 490
+  orig: 720, 490
+  offset: 0, 0
+  index: 8
+Minotaur_01_Idle
+  rotate: false
+  xy: 2, 494
+  size: 720, 490
+  orig: 720, 490
+  offset: 0, 0
+  index: 0
+Minotaur_01_Idle
+  rotate: false
+  xy: 724, 986
+  size: 720, 490
+  orig: 720, 490
+  offset: 0, 0
+  index: 5
+Minotaur_01_Idle
+  rotate: false
+  xy: 2, 2
+  size: 720, 490
+  orig: 720, 490
+  offset: 0, 0
+  index: 10
+Minotaur_01_Idle
+  rotate: false
+  xy: 724, 494
+  size: 720, 490
+  orig: 720, 490
+  offset: 0, 0
+  index: 2
+Minotaur_01_Idle
+  rotate: false
+  xy: 724, 2
+  size: 720, 490
+  orig: 720, 490
+  offset: 0, 0
+  index: 7
+
+idle2.png
+size: 2048, 1024
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+Minotaur_01_Idle
+  rotate: false
+  xy: 2, 494
+  size: 720, 490
+  orig: 720, 490
+  offset: 0, 0
+  index: 4
+Minotaur_01_Idle
+  rotate: false
+  xy: 2, 2
+  size: 720, 490
+  orig: 720, 490
+  offset: 0, 0
+  index: 9
+Minotaur_01_Idle
+  rotate: false
+  xy: 724, 494
+  size: 720, 490
+  orig: 720, 490
+  offset: 0, 0
+  index: 1
+Minotaur_01_Idle
+  rotate: false
+  xy: 724, 2
+  size: 720, 490
+  orig: 720, 490
+  offset: 0, 0
+  index: 6

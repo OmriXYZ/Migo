@@ -7,7 +7,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.migogames.game.contactListenres.ContactListers;
 
 import static com.migogames.game.Constants.PPM;
 
@@ -45,9 +44,7 @@ public class Player {
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
-            body.applyForceToCenter(0, 300, false);
-
-
+            body.applyForceToCenter(0, 750, false);
         }
 
         body.setLinearVelocity(xForce * 5, body.getLinearVelocity().y);

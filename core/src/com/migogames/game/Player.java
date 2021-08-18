@@ -33,9 +33,15 @@ public class Player extends Entity {
     private Timer timer;
     private Timer.Task manaTask;
 
+    private int expPoints;
+    private int currentExpPoints;
+
 
     public Player(String name, World world, float x, float y, int width, int height, Skin skin, int hp, int mp, int cHP, int cMP, Array<Body> bodiesToDestroy) {
         super(name, world, x, y, width, height, skin, hp, mp, cHP, cMP);
+
+        this.expPoints = 100;
+        this.currentExpPoints = 0;
 
         this.bodiesToDestroy = bodiesToDestroy;
 
@@ -225,4 +231,11 @@ public class Player extends Entity {
         body.setTransform(getX() / PPM, y / PPM, 0);
     }
 
+    public int getMaxExpPoints() {
+        return expPoints;
+    }
+
+    public int getCurrentExpPoints() {
+        return currentExpPoints;
+    }
 }

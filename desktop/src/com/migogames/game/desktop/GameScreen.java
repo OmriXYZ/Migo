@@ -130,7 +130,7 @@ public class GameScreen extends ScreenAdapter {
         batch.setProjectionMatrix(camera.combined);
         player.update(batch);
 
-        hudPlayer.updateHud(player.getMaxHP(), player.getMaxMP(), player.getCurrentHP(), player.getCurrentMP(), hudBatch);
+        hudPlayer.updateHud(player.getMaxHP(), player.getMaxMP(), player.getMaxExpPoints(), player.getCurrentHP(), player.getCurrentMP(), player.getCurrentExpPoints(), hudBatch);
 
 
     }

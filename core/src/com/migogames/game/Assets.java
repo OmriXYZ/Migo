@@ -10,7 +10,7 @@ public class Assets {
         if (assetManager == null) {
             assetManager = new AssetManager();
         }
-        assetManager.load("idle.atlas", TextureAtlas.class);
+        assetManager.load("skins.atlas", TextureAtlas.class);
     }
 
 

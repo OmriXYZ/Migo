@@ -1,13 +1,13 @@
 package com.migogames.game.desktop;
 
-import box2dLight.PointLight;
-import box2dLight.RayHandler;
+import box2dLight.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -25,6 +25,8 @@ import com.migogames.game.Hud;
 import com.migogames.game.MapBodyBuilder;
 import com.migogames.game.Player;
 import com.migogames.game.contactListenres.ContactListers;
+
+import javax.xml.crypto.dsig.spec.XPathType;
 
 import static com.migogames.game.Constants.FLOOR;
 import static com.migogames.game.Constants.WALL;
@@ -47,7 +49,7 @@ public class GameScreen extends ScreenAdapter {
     private Assets assets;
 
     private RayHandler rayHandler;
-    private PointLight pointLight;
+    private Light pointLight;
 
     private Array<Body> bodiesToDestroy;
 
@@ -81,7 +83,10 @@ public class GameScreen extends ScreenAdapter {
         hudPlayer = new Hud(hudBatch);
 
         rayHandler = new RayHandler(world);
-        pointLight = new PointLight(rayHandler,500, Color.YELLOW,2000, player.getX()+100, player.getY()+500);
+        rayHandler.setAmbientLight(0, 0 , 0 ,0.9f);
+
+        pointLight = new ConeLight(rayHandler,2000 , Color.WHITE, 2000, player.getX() + 100, player.getY() + 500, 270 , 45);
+
 
     }
 
@@ -90,7 +95,7 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0,0,0,1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
+        this.update();
 
         float x = camera.position.x - camera.viewportWidth * camera.zoom;
         float y = camera.position.y - camera.viewportHeight * camera.zoom;
@@ -101,23 +106,26 @@ public class GameScreen extends ScreenAdapter {
         tiledMapRenderer.setView(camera.combined, x, y, width, height);
         tiledMapRenderer.render();
 
-        //rayHandler.updateAndRender();
-        //rayHandler.setCombinedMatrix(camera.combined);
-
-
         hudBatch.setProjectionMatrix(hudPlayer.getStage().getCamera().combined);
         hudPlayer.getStage().act(delta);
         hudPlayer.getStage().draw();
 
+        hudPlayer.updateHud(player.getMaxHP(), player.getMaxMP(), player.getMaxExpPoints(), player.getCurrentHP(), player.getCurrentMP(), player.getCurrentExpPoints(), hudBatch);
+
+
+        rayHandler.setCombinedMatrix(camera.combined,0,0,1,1);
+        rayHandler.render();
+
         debugger.render(world, camera.combined.scl(PPM));
-        this.update();
+
 
 
     }
 
     private void update() {
 
-        world.step(1/60f, 6, 2);
+        world.step(1 / 60f , 6, 2);
+
 
         if (!bodiesToDestroy.isEmpty()) {
             for (Body bodyToDestroy : bodiesToDestroy) {
@@ -130,8 +138,7 @@ public class GameScreen extends ScreenAdapter {
         batch.setProjectionMatrix(camera.combined);
         player.update(batch);
 
-        hudPlayer.updateHud(player.getMaxHP(), player.getMaxMP(), player.getMaxExpPoints(), player.getCurrentHP(), player.getCurrentMP(), player.getCurrentExpPoints(), hudBatch);
-
+        rayHandler.update();
 
     }
 

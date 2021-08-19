@@ -25,7 +25,6 @@ public class Entity {
 
     protected static final int FRAME_ROWS = 1;
 
-
     protected TextureRegion currentFrame;
     protected ArrayList<Animation> animations;
     protected int currentAnimation;
@@ -60,6 +59,9 @@ public class Entity {
         bodyFixture.density = 1f;
         bodyFixture.friction = 0f;
         bodyFixture.shape = shape;
+
+
+
         body.createFixture(bodyFixture).setUserData(this);
         shape.dispose();
 

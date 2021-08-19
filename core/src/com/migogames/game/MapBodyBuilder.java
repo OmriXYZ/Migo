@@ -50,6 +50,9 @@ public class MapBodyBuilder {
             Body body = world.createBody(bd);
             body.createFixture(shape, 1).setUserData(layer);
 
+
+
+
             bodies.add(body);
 
             shape.dispose();

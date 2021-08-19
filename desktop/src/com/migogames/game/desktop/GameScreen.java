@@ -150,8 +150,8 @@ public class GameScreen extends ScreenAdapter {
         else
             position.x = 670;
 
-        if (player.getBody().getPosition().y * PPM > 250)
-            position.y = player.getBody().getPosition().y * PPM + 475-250;
+        if (player.getBody().getPosition().y * PPM > 375)
+            position.y = player.getBody().getPosition().y * PPM + 475-375;
         else
             position.y = 475;
         if (player.getY() < 0) {

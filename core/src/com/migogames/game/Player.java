@@ -35,6 +35,7 @@ public class Player extends Entity {
 
     private int expPoints;
     private int currentExpPoints;
+    private int level;
 
 
     public Player(String name, World world, float x, float y, int width, int height, Skin skin, int hp, int mp, int cHP, int cMP, Array<Body> bodiesToDestroy) {
@@ -79,9 +80,6 @@ public class Player extends Entity {
     public void update(SpriteBatch batch) {
         super.update(batch);
         updateMovementTexture(batch);
-
-
-
 
     }
 

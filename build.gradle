@@ -26,6 +26,7 @@ allprojects {
         ashleyVersion = '1.7.3'
         aiVersion = '1.8.2'
         gdxControllersVersion = '2.1.0'
+        visuiVersion = '1.5.0'
     }
 
     repositories {
@@ -58,6 +59,7 @@ project(":core") {
 
 
     dependencies {
+        compile "com.kotcrab.vis:vis-ui:$visuiVersion"
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         api "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
@@ -67,4 +69,8 @@ project(":core") {
         api "net.dermetfan.libgdx-utils:libgdx-utils:0.13.4"
         
     }
+}
+
+dependencies {
+//    implementation 'pl.kotcrab.vis:vis-ui:0.3.1'
 }

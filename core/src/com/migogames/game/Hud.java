@@ -1,24 +1,26 @@
 package com.migogames.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class Hud {
     private Stage stage;
     private FitViewport stageViewport;
+    private Table table;
+    private Group healthGroup, manaGroup, expGroup;
     private Image imgHealth, imgMana, imgExp, imgBlankBarHP, imgBlankBarMP, imgBlankExp;
     private BitmapFont font;
     private final float X = 200,Y = 895;
     private final int WIDTHBAR = 500;
+
 
     public Hud(SpriteBatch hudBatch) {
         stageViewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -35,22 +37,47 @@ public class Hud {
         imgBlankBarHP = new Image(texBlankBar);
         imgBlankExp = new Image(texBlankBar);
 
+        healthGroup = new Group();
+        healthGroup.addActor(imgBlankBarHP);
+        healthGroup.addActor(imgHealth);
+        healthGroup.setWidth(imgBlankBarHP.getWidth());
+        healthGroup.setHeight(imgBlankBarHP.getHeight());
+        imgHealth.setPosition(4f,3.4f);
+
+        manaGroup = new Group();
+        manaGroup.addActor(imgBlankBarMP);
+        manaGroup.addActor(imgMana);
+        manaGroup.setWidth(imgBlankBarMP.getWidth());
+        manaGroup.setHeight(imgBlankBarMP.getHeight());
+        imgMana.setPosition(4f,3.4f);
+
+        expGroup = new Group();
+        expGroup.addActor(imgBlankExp);
+        expGroup.addActor(imgExp);
+        expGroup.setWidth(imgBlankExp.getWidth());
+        expGroup.setHeight(imgBlankExp.getHeight());
+        imgExp.setPosition(4f,3.4f);
 
         font = new BitmapFont(Gdx.files.internal("hud/font.fnt"), false);
         font.getData().setScale(0.5f);
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
+        table = new Table();
+        table.setWidth(stage.getWidth());
+        table.setHeight(100);
+        table.align(Align.left);
+        table.pad(0, 8,0,0);
+        table.setPosition(0, Gdx.graphics.getHeight()-table.getHeight());
+
+        table.add(healthGroup).padBottom(5);
+        table.row();
+        table.add(manaGroup).padBottom(5);
+        table.row();
+        table.add(expGroup);
+        table.row();
 
 
-        Table table = new Table();
-        table.add(imgBlankBarMP);
-        table.add(imgBlankBarHP);
-        table.add(imgBlankExp);
-        table.add(imgHealth);
-        table.add(imgMana);
-        table.add(imgExp);
-
-
+       //stage.setDebugAll(true);
         stage.addActor(table);
     }
     public Stage getStage() {
@@ -59,27 +86,21 @@ public class Hud {
 
     public void updateHud(int hp, int mp, int exp, int cHP, int cMP, int cExp, SpriteBatch hudBatch) {
         imgHealth.setWidth(getCurrentHP(hp, cHP));
-        imgHealth.setHeight(19f);
-        imgHealth.setPosition(4, 40 + Y);
+        imgHealth.setHeight(20f);
         imgMana.setWidth(getCurrentMP(mp, cMP));
         imgMana.setHeight(20);
-        imgMana.setPosition(4, 10 + Y);
         imgBlankBarMP.setWidth(WIDTHBAR+8);
         imgBlankBarMP.setHeight(26f);
-        imgBlankBarMP.setPosition(0, 7f + Y);
         imgBlankBarHP.setWidth(WIDTHBAR+8);
         imgBlankBarHP.setHeight(26f);
-        imgBlankBarHP.setPosition(0, 37f + Y);
         imgBlankExp.setWidth(WIDTHBAR+8);
         imgBlankExp.setHeight(26f);
-        imgBlankExp.setPosition(0, Y -23);
-        imgExp.setWidth(getCurrentMP(exp, cExp));
+        imgExp.setWidth(getCurrentExp(exp, cExp));
         imgExp.setHeight(20);
-        imgExp.setPosition(4, -20 + Y);
         hudBatch.begin();
-        font.draw(hudBatch, "HP: " + cHP, 6 ,57 + Y);
-        font.draw(hudBatch, "MP: " + cMP, 6 ,27 + Y);
-        font.draw(hudBatch, "EXP: " + cExp, 6 ,-4 + Y);
+        font.draw(hudBatch, "HP: " + cHP, healthGroup.getX() + imgHealth.getX() + table.getX() ,healthGroup.getY() + table.getY() + healthGroup.getHeight() - imgHealth.getY()*2);
+        font.draw(hudBatch, "MP: " + cMP, manaGroup.getX() + imgMana.getX() + table.getX() ,manaGroup.getY() + table.getY() + manaGroup.getHeight() - imgMana.getY()*2);
+        font.draw(hudBatch, "EXP: " + cExp, expGroup.getX() + imgExp.getX() + table.getX() ,expGroup.getY() + table.getY() + expGroup.getHeight() - imgExp.getY()*2);
         hudBatch.end();
 
     }

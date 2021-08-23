@@ -1,6 +1,6 @@
-name=skins
-filename=skin.atlas
-output=.
+name=skin
+filename=
+output=../../core/assets
 
 alias=true
 alphaThreshold=0
@@ -15,8 +15,8 @@ maxHeight=2048
 maxWidth=2048
 minHeight=16
 minWidth=16
-paddingX=0
-paddingY=0
+paddingX=2
+paddingY=2
 pot=true
 mof=false
 rotation=false
@@ -25,14 +25,14 @@ stripWhitespaceY=false
 wrapX=ClampToEdge
 wrapY=ClampToEdge
 premultiplyAlpha=false
-grid=true
+grid=false
 square=false
 bleed=true
 limitMemory=true
 useIndexes=true
 
 scaleFactors=[{suffix:"",factor:1,resampling:bicubic}]
-inputFiles=[{path:player/idle.png,type:Input,regionName:null},{path:player/run.png,type:Input,regionName:null},{path:player/jump.png,type:Input,regionName:null},{path:player/fall.png,type:Input,regionName:null},{path:player/attack1.png,type:Input,regionName:null},{path:player/attack2.png,type:Input,regionName:null}]
+inputFiles=[{path:../../core/assets/enemy/evilwizard/run.png,type:Input,regionName:null},{path:../../core/assets/enemy/evilwizard/idle.png,type:Input,regionName:null},{path:../../core/assets/enemy/evilwizard/hit.png,type:Input,regionName:null}]
 
 
 -PROJ-

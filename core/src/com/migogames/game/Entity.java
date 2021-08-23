@@ -36,15 +36,17 @@ public class Entity {
     protected int stepIndex = 0;
 
     protected World world;
+    protected SpriteBatch batch;
 
     protected int healthPoints;
     protected int magicPoints;
     protected int currentHealthPoints;
     protected int currentMagicPoints;
 
-    public Entity(String name, World world, float x, float y, int width, int height, Skin skin, int hp, int mp, int cHP, int cMP) {
+    public Entity(String name, World world, SpriteBatch batch, float x, float y, int width, int height, Skin skin, int hp, int mp, int cHP, int cMP) {
         this.world = world;
         this.name = name;
+        this.batch = batch;
         //Creating body
         BodyDef def = new BodyDef();
         def.type = BodyDef.BodyType.DynamicBody;
@@ -60,9 +62,8 @@ public class Entity {
         bodyFixture.friction = 0f;
         bodyFixture.shape = shape;
 
-
-
         body.createFixture(bodyFixture).setUserData(this);
+
         shape.dispose();
 
         this.width = width;
@@ -124,6 +125,22 @@ public class Entity {
 
     public int getMaxMP() {
         return magicPoints;
+    }
+
+    public float getX() {
+        return body.getPosition().x * PPM;
+    }
+
+    public float getY() {
+        return body.getPosition().y * PPM;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public float getHeight() {
+        return height;
     }
 
 }

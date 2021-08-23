@@ -38,8 +38,8 @@ public class Player extends Entity {
     private int level;
 
 
-    public Player(String name, World world, float x, float y, int width, int height, Skin skin, int hp, int mp, int cHP, int cMP, Array<Body> bodiesToDestroy) {
-        super(name, world, x, y, width, height, skin, hp, mp, cHP, cMP);
+    public Player(String name, World world, SpriteBatch batch, float x, float y, int width, int height, Skin skin, int hp, int mp, int cHP, int cMP, Array<Body> bodiesToDestroy) {
+        super(name, world, batch, x, y, width, height, skin, hp, mp, cHP, cMP);
 
         this.expPoints = 100;
         this.currentExpPoints = 0;
@@ -47,7 +47,7 @@ public class Player extends Entity {
         this.bodiesToDestroy = bodiesToDestroy;
 
         addTexture(skin.getRegion("run"), 8, 0.065f);
-        addTexture(skin.getRegion("idle"), 6, 0.05f);
+        addTexture(skin.getRegion("idle"), 6, 0.07f);
         addTexture(skin.getRegion("jump"), 2, 0.05f);
         addTexture(skin.getRegion("fall"), 2, 0.05f);
         addTexture(skin.getRegion("attack1"), 8, 0.04f);
@@ -70,6 +70,8 @@ public class Player extends Entity {
             }
         };
         timer.scheduleTask(manaTask, 0.5f);
+
+        body.setUserData("PLAYER");
 
     }
 
@@ -211,14 +213,6 @@ public class Player extends Entity {
 
 
 
-    }
-
-    public float getX() {
-        return body.getPosition().x * PPM;
-    }
-
-    public float getY() {
-        return body.getPosition().y * PPM;
     }
 
     public void setX(float x) {

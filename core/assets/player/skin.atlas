@@ -1,0 +1,48 @@
+
+skin.png
+size: 2048, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+attack1
+  rotate: false
+  xy: 0, 0
+  size: 987, 141
+  orig: 987, 141
+  offset: 0, 0
+  index: -1
+attack2
+  rotate: false
+  xy: 0, 141
+  size: 1078, 105
+  orig: 1078, 105
+  offset: 0, 0
+  index: -1
+fall
+  rotate: false
+  xy: 0, 282
+  size: 134, 100
+  orig: 134, 100
+  offset: 0, 0
+  index: -1
+idle
+  rotate: false
+  xy: 0, 423
+  size: 342, 86
+  orig: 342, 86
+  offset: 0, 0
+  index: -1
+jump
+  rotate: false
+  xy: 0, 564
+  size: 141, 87
+  orig: 141, 87
+  offset: 0, 0
+  index: -1
+run
+  rotate: false
+  xy: 0, 705
+  size: 600, 85
+  orig: 600, 85
+  offset: 0, 0
+  index: -1

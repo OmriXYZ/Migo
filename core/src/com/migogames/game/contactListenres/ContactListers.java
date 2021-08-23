@@ -1,6 +1,7 @@
 package com.migogames.game.contactListenres;
 
 import com.badlogic.gdx.physics.box2d.*;
+import com.migogames.game.Enemy;
 import com.migogames.game.Player;
 
 public class ContactListers implements ContactListener {
@@ -14,7 +15,12 @@ public class ContactListers implements ContactListener {
         boolean bIsPlayer = fb.getUserData().getClass() == Player.class;
         boolean aIsGround = fa.getUserData() == "Floor";
         boolean bIsGround = fb.getUserData() == "Floor";
-
+        boolean aIsEnemy = fa.getUserData().getClass() == Enemy.class;
+        boolean bIsEnemy = fb.getUserData().getClass() == Enemy.class;
+        boolean aIsPowerBall = fa.getUserData() == "POWERBALL";
+        boolean bIsPowerBall = fb.getUserData() == "POWERBALL";
+        boolean aIsMagic = fa.getUserData() == "MAGIC";
+        boolean bIsMagic = fb.getUserData() == "MAGIC";
 
         if (fa == null || fb == null)
             return;
@@ -31,6 +37,26 @@ public class ContactListers implements ContactListener {
             Player tfb;
             tfb = (Player) fb.getUserData();
             tfb.hitTheGround();
+        }
+        if (aIsEnemy && bIsPowerBall) {
+            Enemy tfa;
+            tfa = (Enemy) fa.getUserData();
+            tfa.getHit(25);
+        }
+        if (bIsEnemy && aIsPowerBall) {
+            Enemy tfb;
+            tfb = (Enemy) fb.getUserData();
+            tfb.getHit(25);
+        }
+        if (aIsEnemy && bIsMagic) {
+            Enemy tfa;
+            tfa = (Enemy) fa.getUserData();
+            tfa.getHit(10);
+        }
+        if (bIsEnemy && aIsMagic) {
+            Enemy tfb;
+            tfb = (Enemy) fb.getUserData();
+            tfb.getHit(10);
         }
 
 

@@ -1,0 +1,27 @@
+
+skin.png
+size: 1024, 512
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+hit
+  rotate: false
+  xy: 2, 2
+  size: 244, 156
+  orig: 244, 156
+  offset: 0, 0
+  index: -1
+idle
+  rotate: false
+  xy: 2, 160
+  size: 825, 187
+  orig: 825, 187
+  offset: 0, 0
+  index: -1
+run
+  rotate: false
+  xy: 2, 349
+  size: 1000, 123
+  orig: 1000, 123
+  offset: 0, 0
+  index: -1

@@ -1,13 +1,14 @@
 package com.migogames.game.desktop;
 
-import box2dLight.*;
+import box2dLight.ConeLight;
+import box2dLight.Light;
+import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -20,13 +21,8 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
-import com.migogames.game.Assets;
-import com.migogames.game.Hud;
-import com.migogames.game.MapBodyBuilder;
-import com.migogames.game.Player;
+import com.migogames.game.*;
 import com.migogames.game.contactListenres.ContactListers;
-
-import javax.xml.crypto.dsig.spec.XPathType;
 
 import static com.migogames.game.Constants.FLOOR;
 import static com.migogames.game.Constants.WALL;
@@ -36,12 +32,15 @@ public class GameScreen extends ScreenAdapter {
     private OrthographicCamera camera;
     private SpriteBatch batch;
     private SpriteBatch hudBatch;
-    private Skin skin;
+    private Skin skinPlayer, skinEnemyEvilWizard;
     private World world;
     private Box2DDebugRenderer debugger;
     private Player player;
 
+    private Enemy enemy;
+
     private Hud hudPlayer;
+    private HudEnemy hudEnemy;
 
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private TiledMap tileMap;
@@ -65,12 +64,14 @@ public class GameScreen extends ScreenAdapter {
         assets.load();
         assets.assetManager.finishLoading();
 
-        skin = new Skin();
-        skin.addRegions(assets.assetManager.get("skins.atlas", TextureAtlas.class));
-
+        skinPlayer = new Skin();
+        skinPlayer.addRegions(assets.assetManager.get("player/skin.atlas", TextureAtlas.class));
+        skinEnemyEvilWizard = new Skin();
+        skinEnemyEvilWizard.addRegions(assets.assetManager.get("enemy/evilwizard/skin.atlas", TextureAtlas.class));
         bodiesToDestroy = new Array<Body>();
 
-        player = new Player("Itay", world, 250, 225, 58, 86, skin, 100, 250, 100, 250, bodiesToDestroy);
+        player = new Player("Itay", world, batch, 250, 225, 58, 86, skinPlayer, 100, 250, 100, 250, bodiesToDestroy);
+        enemy = new Enemy("susu", world, batch, 250, 225, 58, 86, skinEnemyEvilWizard, 350, 250, 350, 250);
 
         tileMap = new TmxMapLoader().load("map/World.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tileMap);
@@ -81,11 +82,14 @@ public class GameScreen extends ScreenAdapter {
 
         this.hudBatch = new SpriteBatch();
         hudPlayer = new Hud(hudBatch);
+        hudEnemy = new HudEnemy(batch, camera);
+
 
         rayHandler = new RayHandler(world);
-        rayHandler.setAmbientLight(0, 0 , 0 ,0.9f);
+        rayHandler.setAmbientLight(0, 0 , 0 ,0.8f);
 
-        pointLight = new ConeLight(rayHandler,2000 , Color.WHITE, 2000, player.getX() + 100, player.getY() + 500, 270 , 45);
+
+        pointLight = new ConeLight(rayHandler,300 , Color.WHITE, 150, 20, 50, 270 , 80);
 
 
     }
@@ -109,15 +113,18 @@ public class GameScreen extends ScreenAdapter {
         hudBatch.setProjectionMatrix(hudPlayer.getStage().getCamera().combined);
         hudPlayer.getStage().act(delta);
         hudPlayer.getStage().draw();
-
         hudPlayer.updateHud(player.getMaxHP(), player.getMaxMP(), player.getMaxExpPoints(), player.getCurrentHP(), player.getCurrentMP(), player.getCurrentExpPoints(), hudBatch);
 
+        batch.setProjectionMatrix(hudEnemy.getStage().getCamera().combined);
+        hudEnemy.getStage().act(delta);
+        hudEnemy.getStage().draw();
+        hudEnemy.updateHud(enemy.getMaxHP(), enemy.getMaxMP(), enemy.getCurrentHP(), enemy.getCurrentMP(),new Vector2(enemy.getX()-enemy.getWidth()/2, enemy.getY() + enemy.getHeight()), batch);
 
-        rayHandler.setCombinedMatrix(camera.combined,0,0,1,1);
-        rayHandler.render();
+
+        rayHandler.setCombinedMatrix(camera.combined.cpy().scale(PPM, PPM, 1f));
+        rayHandler.updateAndRender();
 
         debugger.render(world, camera.combined.scl(PPM));
-
 
 
     }
@@ -137,8 +144,8 @@ public class GameScreen extends ScreenAdapter {
         cameraUpdate();
         batch.setProjectionMatrix(camera.combined);
         player.update(batch);
+        enemy.update(batch);
 
-        rayHandler.update();
 
     }
 
@@ -147,7 +154,8 @@ public class GameScreen extends ScreenAdapter {
         world.dispose();
         debugger.dispose();
         batch.dispose();
-        skin.dispose();
+        skinPlayer.dispose();
+        skinEnemyEvilWizard.dispose();
     }
 
     private void cameraUpdate() {
